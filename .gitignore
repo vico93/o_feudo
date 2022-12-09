@@ -5,3 +5,5 @@
 /src/server.cfg
 /src/gamemodes/*.amx
 /src/filterscripts/*.amx
+/src/bans.json
+/src/log.txt
