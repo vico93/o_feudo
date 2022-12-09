@@ -1,4 +1,5 @@
 # Open.MP
+/spawn_generator/
 /src/components
 /src/omp-server*
 /src/config.json
