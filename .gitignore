@@ -1,0 +1,5 @@
+# Open.MP
+/src/components
+/src/omp-server*
+/src/config.json
+/src/server.cfg
