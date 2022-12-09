@@ -3,3 +3,5 @@
 /src/omp-server*
 /src/config.json
 /src/server.cfg
+/src/gamemodes/*.amx
+/src/filterscripts/*.amx
