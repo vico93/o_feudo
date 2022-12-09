@@ -1,27 +1,87 @@
+/*
+ *  Arquivo:				of_utils.inc
+ *  Tipo:					Biblioteca de funções úteis
+ *  Autor:					Vico
+ *  Licença:				MIT
+*/
 
+/* ------------------------------- BIBLIOTECAS ------------------------------- */
+#include <a_samp>											// Biblioteca padrão
+#include "../includes/sscanf.inc"							// Biblioteca sscanf
 
+/* ------------------------------- DEFINIÇÕES -------------------------------- */
+// DCMD
+#define dcmd(%1,%2,%3) if ((strcmp((%3)[1], #%1, true, (%2)) == 0) && ((((%3)[(%2) + 1] == 0) && (dcmd_%1(playerid, "")))||(((%3)[(%2) + 1] == 32) && (dcmd_%1(playerid, (%3)[(%2) + 2]))))) return 1
 
-// Embaralha um array de inteiros
-// array - O array de inteiros a ser embaralhado
-// count - O número de elementos no array
+/* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
+
+/* ---------------------- CABEÇALHO DE FUNÇÕES PÚBLICAS ---------------------- */
+
+/* ------------------------ CORPO DE FUNÇÕES PÚBLICAS ------------------------ */
+
+/* ---------------------------- FUNÇÕES (STOCKS) ----------------------------- */
 //
-// Retorna 1 se o array foi embaralhado com sucesso, caso contrário, retorna 0
-stock embaralhar_array(array[], count)
+//	Verifica se a ID de skin passada é válida
+//
+stock IsValidSkin(skinid)
 {
-    if (count < 2)
-    {
-        // Não há o suficiente elementos para embaralhar
+    if (skinid == 74 || skinid > 311 || skinid < 0)
+	{
         return 0;
-    }
-
-    // Embaralha o array
-    for (new i = 0; i < count; i++)
-    {
-        new j = random(count);
-        new temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-
+	}	
     return 1;
+}
+
+//
+//	Adiciona as classes necessárias em ordem aleatória (vai no evento OnGameModeInit)
+//
+stock inicializar_skins()
+{
+	// Faz com que todos tenham o andar do CJ
+	UsePlayerPedAnims();
+	
+	// Cria um vetor para armazenar as IDs de skins válidas
+	new skins[312];
+	
+    // Gera o vetor ordenado (311 é a ID mais alta de skins não-customizadas)
+    for (new i = 0; i < sizeof(skins); i++)
+    {
+		skins[i] = i;
+    }
+	
+    // Embaralha o vetor
+    for (new i = 0; i < sizeof(skins); i++)
+    {
+        new j = random(sizeof(skins));
+        new temp = skins[i];
+        skins[i] = skins[j];
+        skins[j] = temp;
+    }
+
+	// Finalmente adiciona as classes de skins no gamemode
+	for (new i = 0; i < sizeof(skins); i++)
+	{
+		// Verifica se a ID de skin é válida
+		if (IsValidSkin(skins[i]))
+		{
+			// LOCAL: ARMÁRIO DO CJ (Interior 14)
+			AddPlayerClass(skins[i], 259.104156, -41.613594, 1002.023437, 99.760757, 0, 0, 0, 0, 0, 0);
+		}
+	}
+	
+	return 1;
+}
+//
+// Segunda parte da inicialização de skins (essa vai no evento OnPlayerRequestClass)
+//
+stock inicializar_skins2(playerid)
+{
+	// LOCAL: ARMÁRIO DO CJ (Interior 14)
+	SetPlayerInterior(playerid, 14);
+	SetPlayerPos(playerid, 259.104156, -41.613594, 1002.023437);
+	SetPlayerFacingAngle(playerid, 99.760757);
+	SetPlayerCameraLookAt(playerid, 259.104156, -41.613594, 1002.023437);
+	SetPlayerCameraPos(playerid, 259.104156 + (5 * floatsin(-99.760757, degrees)), -41.613594 + (5 * floatcos(-99.760757, degrees)), 1002.023437);
+	
+	return 1;
 }

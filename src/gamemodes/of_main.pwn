@@ -1,65 +1,93 @@
-//----------------------------------------------------------
-//
-//  O FEUDO  0.1b
-//  S√≥ mais um sistema GM+FS para o SA:MP 0.3DL
-//
-//----------------------------------------------------------
+/*
+ *  Arquivo:				of_main.pwn
+ *  Tipo:					Gamemode 4Fun
+ *  Autor:					Vico
+ *  LicenÁa:				MIT
+ *  Vers„o:					0.1b
+*/
 
-#include <a_samp>										// Biblioteca padr√£o
+/* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include "../includes/of_utils.inc"						// Biblioteca do projeto
 
+/* ------------------------------- DEFINI«’ES -------------------------------- */
+#define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
+
+/* ---------------------------- VARI¡VEIS GLOBAIS ---------------------------- */
+
+/* ----------------------------- M…TODO PRINCIPAL ---------------------------- */
 main()
 {
-	print("Gamemode O_FEUDO carregado com sucesso!");
+	// Mensagem apÛs todo o total carregamento do sistema
+    print("Feito! Servidor funcional!");
 }
 
+/* -------------------------------- EVENTOS ---------------------------------- */
+//
+// Ao iniciar o gamemode
+//
 public OnGameModeInit()
 {
 	// Define o nome do gamemode
-	SetGameModeText("O Feudo (4Fun)");
+	SetGameModeText(GM_NAME);
 	
-	// Cria um vetor tempor√°rio pra armazenar todas as IDs v√°lidas de skins...
-	new skins[311];
-	for (new i = 0; i < 311; i++)
-	{
-		if (i != 74)
-		{
-			skins[i] = i;
-		}
-	}
-	// ...para embaralhar em seguida...
-	embaralhar_array(skins, sizeof(skins));
-	// ...feito o embaralhamento, adiciona as classes aleatorizadas
-	for (new j = 0; j < sizeof(skins); j++)
-	{
-		AddPlayerClass(skins[j], 259.104156, -41.613594, 1002.023437, 99.760757, 0, 0, 0, 0, 0, 0);
-	}
+	// Deshabilita os ENEXs (cones amarelos para acesso aos interiores)
+	DisableInteriorEnterExits();
+	
+	// Inicializa as classes de skins no gamemode
+	inicializar_skins();
+	
+	// Confirma que foi iniciado com sucesso
+	printf("\"%s\" iniciado com sucesso!", GM_NAME);
 	
 	return 1;
 }
 
+//
+// Ao encerrar o gamemode
+//
 public OnGameModeExit()
 {
+	// Confirma que foi encerrado com sucesso
+	printf("\"%s\" encerrado com sucesso!", GM_NAME);
 	return 1;
 }
 
+//
+// Quando o jogador alterna entre as classes na tela de spawn
+//
 public OnPlayerRequestClass(playerid, classid)
 {
-	SetPlayerInterior(playerid, 14);
-	SetPlayerPos(playerid, 259.104156, -41.613594, 1002.023437);
-	SetPlayerFacingAngle(playerid, 99.760757);
-	SetPlayerCameraLookAt(playerid, 259.104156, -41.613594, 1002.023437);
-	SetPlayerCameraPos(playerid, 259.104156 + (5 * floatsin(-99.760757, degrees)), -41.613594 + (5 * floatcos(-99.760757, degrees)), 1002.023437);
+	// Inicializa posiÁıes e interior da tela de escolha de skins
+	inicializar_skins2(playerid);
+	
 	return 1;
 }
 
+//
+// Quando o jogador se conecta ao servidor
+//
 public OnPlayerConnect(playerid)
 {
 	return 1;
 }
 
+//
+// Quando o jogador desconecta do servidor
+//
 public OnPlayerDisconnect(playerid, reason)
 {
+	return 1;
+}
+
+//
+// Quando o jogador È "spawnado" no mundo
+//
+public OnPlayerSpawn(playerid)
+{
+	// LOCAL: GROVE STREET (um pouco mais ‡ frente da porta da casa do CJ)
+	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
+	SetPlayerFacingAngle(playerid, 7.3733);
+	SetPlayerInterior(playerid, 0);
 	return 1;
 }
 
@@ -81,16 +109,6 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
 	return 1;
-}
-
-public OnPlayerCommandText(playerid, cmdtext[])
-{
-	if (strcmp("/mycommand", cmdtext, true, 10) == 0)
-	{
-		// Do something here
-		return 1;
-	}
-	return 0;
 }
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
@@ -278,13 +296,6 @@ public OnPlayerSelectedMenuRow(playerid, row)
 	return 1;
 }
 
-public OnPlayerSpawn(playerid)
-{
-	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
-	SetPlayerInterior(playerid, 0);
-	return 1;
-}
-
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
 	return 1;
@@ -309,4 +320,29 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 {
 	return 1;
+}
+
+//
+// Quando o jogador faz um comando
+//
+public OnPlayerCommandText(playerid, cmdtext[])
+{
+	dcmd(help, 4, cmdtext);					// Ajuda
+	SendClientMessage(playerid, 0xFF5555FF, "Comando desconhecido. Digite /help para ver a lista de comandos");
+	return 1;
+}
+/* ------------------------------- COMANDOS ------------------------------- */
+//
+// Comando de ajuda
+//
+dcmd_help(playerid, params[]) // just change "kill" to whatever you put for the first parameter in the onplayercommandtext bit
+{
+	// Caso n„o v· utilizar argumentos...
+	#pragma unused params
+	
+	// Envia a tabela de comandos
+	SendClientMessage(playerid, 0x00AA00FF, "--- Mostrando p·gina de ajuda 1 de 1 (/help <p·gina>) ---");
+	SendClientMessage(playerid, -1, "/help [p·gina/nome do comando]");
+	SendClientMessage(playerid, 0x00AA00FF, "---------------------------------------------------------");
+    return 1;
 }
