@@ -8,6 +8,7 @@
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include "../includes/of_utils.inc"						// Biblioteca do projeto
+#include "../includes/of_colors.inc"					// Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 #define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
@@ -68,6 +69,21 @@ public OnPlayerRequestClass(playerid, classid)
 //
 public OnPlayerConnect(playerid)
 {
+	// Informa no killfeed a entrada do jogador
+	SendDeathMessage(INVALID_PLAYER_ID, playerid, 200);
+	
+	// TEMPORÁRIO: Verifica se o jogador tem o nick "Vico". Se fez, automaticamente dá o nível de permissão 4 para ele.
+    if (!strcmp(GetPlayerNameEx(playerid), "Vico", true))
+    {
+        SetPVarInt(playerid, "perm_level", 4);
+		print("Admin entrou");
+    }
+	else
+	{
+		SetPVarInt(playerid, "perm_level", 0);
+		print("Player entrou");
+	}
+
 	return 1;
 }
 
@@ -76,6 +92,9 @@ public OnPlayerConnect(playerid)
 //
 public OnPlayerDisconnect(playerid, reason)
 {
+	// Informa no killfeed a saída do jogador
+	SendDeathMessage(INVALID_PLAYER_ID, playerid, 201);
+
 	return 1;
 }
 
@@ -88,11 +107,21 @@ public OnPlayerSpawn(playerid)
 	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
 	SetPlayerFacingAngle(playerid, 7.3733);
 	SetPlayerInterior(playerid, 0);
+	
 	return 1;
 }
 
+//
+// Quando o jogador morre
+//
 public OnPlayerDeath(playerid, killerid, reason)
 {
+	// Mostra o acontecido no killfeed
+	SendDeathMessage(killerid, playerid, reason);
+	
+	// Envia o anúncio da morte para o chat
+	SendDeathToChat(playerid, killerid, reason, MC_RED);
+	
 	return 1;
 }
 
@@ -141,6 +170,9 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
 	return 1;
 }
 
+//
+// Acionado durante qualquer tentativa de login via RCON
+//
 public OnRconLoginAttempt(ip[], password[], success)
 {
 	return 1;
@@ -328,21 +360,76 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 public OnPlayerCommandText(playerid, cmdtext[])
 {
 	dcmd(help, 4, cmdtext);					// Ajuda
-	SendClientMessage(playerid, 0xFF5555FF, "Comando desconhecido. Digite /help para ver a lista de comandos");
+	dcmd(kill, 4, cmdtext);					// Matar (ou morrer)
+	dcmd(level, 5, cmdtext);				// Checar nível (debug?)
+	
+	// Caso digite um comando inexistente...
+	SendClientMessage(playerid, MC_RED, "Comando desconhecido. Digite /help para ver a lista de comandos");
 	return 1;
 }
 /* ------------------------------- COMANDOS ------------------------------- */
 //
 // Comando de ajuda
 //
-dcmd_help(playerid, params[]) // just change "kill" to whatever you put for the first parameter in the onplayercommandtext bit
+dcmd_help(playerid, params[])
 {
 	// Caso não vá utilizar argumentos...
 	#pragma unused params
 	
 	// Envia a tabela de comandos
-	SendClientMessage(playerid, 0x00AA00FF, "--- Mostrando página de ajuda 1 de 1 (/help <página>) ---");
-	SendClientMessage(playerid, -1, "/help [página/nome do comando]");
-	SendClientMessage(playerid, 0x00AA00FF, "---------------------------------------------------------");
+	SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando página de ajuda 1 de 1 (/help <página>) ---");
+	SendClientMessage(playerid, MC_WHITE, "/help [página/nome do comando]");
+	SendClientMessage(playerid, MC_DARK_GREEN, "---------------------------------------------------------");
     return 1;
+}
+
+//
+// Matar alguém (ou se matar)
+//
+dcmd_kill(playerid, params[])
+{
+	// Se o jogador que usou o comando tem nível maior ou igual à dois, procede na execução...
+	if (GetPlayerPermissionLevel(playerid) >= 2)
+	{
+		new targetid = INVALID_PLAYER_ID;
+		// Verifica se o comando teve algum argumento passado. Se não tiver, mata o próprio jogador...
+		if (sscanf(params, "u", targetid))
+		{
+			SetPlayerHealth(playerid, 0.0);
+		}
+		// ...e se tiver argumento, verifica se o jogador-alvo existe. Se existir, mata-o, caso contrário, avisa que não existe
+		else
+		{
+			if (IsPlayerConnected(targetid))
+			{
+				SetPlayerHealth(targetid, 0.0);
+			}
+			else
+			{
+				SendClientMessage(playerid, MC_RED, "Não foi possível encontrar o jogador indicado");
+			}
+		}
+	}
+	// ...caso contrário, envia um aviso de permissão
+	else
+	{
+		SendClientMessage(playerid, MC_RED, "Você não tem permissão para usar este comando");
+	}
+	return 1;
+}
+
+//
+//
+//
+dcmd_level(playerid, params[])
+{
+	// Caso não vá utilizar argumentos...
+	#pragma unused params
+	
+	new stdout[MAX_TEXT_OUTPUT];
+	
+	format(stdout, sizeof(stdout), "Seu nível de permissão é %i", GetPlayerPermissionLevel(playerid));
+	SendClientMessage(playerid, MC_MINECOIN_GOLD, stdout);
+	
+	return 1;
 }
