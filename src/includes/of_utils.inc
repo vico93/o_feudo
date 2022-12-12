@@ -1,30 +1,26 @@
 /*
  *  Arquivo:				of_utils.inc
- *  Tipo:					Biblioteca de fun√ß√µes √∫teis
+ *  Tipo:					Biblioteca de funÁıes ˙teis
  *  Autor:					Vico
- *  Licen√ßa:				MIT
+ *  LicenÁa:				MIT
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include <a_samp>											// Biblioteca padr√£o
+#include <a_samp>											// Biblioteca padr„o
 #include "../includes/sscanf.inc"							// Biblioteca sscanf
 
-/* ------------------------------- DEFINI√á√ïES -------------------------------- */
+/* ------------------------------- DEFINI«’ES -------------------------------- */
 // DCMD
 #define dcmd(%1,%2,%3) if ((strcmp((%3)[1], #%1, true, (%2)) == 0) && ((((%3)[(%2) + 1] == 0) && (dcmd_%1(playerid, "")))||(((%3)[(%2) + 1] == 32) && (dcmd_%1(playerid, (%3)[(%2) + 2]))))) return 1
 
-#define MAX_STRING 1024										// Tamanho m√°ximo de string
-#define MAX_TEXT_OUTPUT 144									// Tamanho m√°ximo de string em SendClientMessage
+#define MAX_STRING 1024										// Tamanho m·ximo de string
+#define MAX_TEXT_OUTPUT 144									// Tamanho m·ximo de string em SendClientMessage
 
-/* ---------------------------- VARI√ÅVEIS GLOBAIS ---------------------------- */
+/* ---------------------------- VARI¡VEIS GLOBAIS ---------------------------- */
 
-/* ---------------------- CABE√áALHO DE FUN√á√ïES P√öBLICAS ---------------------- */
-
-/* ------------------------ CORPO DE FUN√á√ïES P√öBLICAS ------------------------ */
-
-/* ---------------------------- FUN√á√ïES (STOCKS) ----------------------------- */
+/* -------------------------------- FUN«’ES ---------------------------------- */
 //
-//	Verifica se a ID de skin passada √© v√°lida
+//	Verifica se a ID de skin passada È v·lida
 //
 stock IsValidSkin(skinid)
 {
@@ -36,7 +32,7 @@ stock IsValidSkin(skinid)
 }
 
 //
-//	Retorna o n√≠vel do usu√°rio (armazenado na vari√°vel de jogador)
+//	Retorna o nÌvel do usu·rio (armazenado na vari·vel de jogador)
 //
 stock GetPlayerPermissionLevel(playerid)
 {
@@ -44,7 +40,7 @@ stock GetPlayerPermissionLevel(playerid)
 }
 
 //
-// Varia√ß√£o do GetPlayerName que RETORNA a string do nome
+// VariaÁ„o do GetPlayerName que RETORNA a string do nome
 //
 stock GetPlayerNameEx(playerid)
 {
@@ -55,7 +51,7 @@ stock GetPlayerNameEx(playerid)
 }
 
 //
-// Varia√ß√£o do GetWeaponName que RETORNA a string da arma
+// VariaÁ„o do GetWeaponName que RETORNA a string da arma
 //
 stock GetWeaponNameEx(weaponid)
 {
@@ -66,17 +62,17 @@ stock GetWeaponNameEx(weaponid)
 }
 
 //
-//	Adiciona as classes necess√°rias em ordem aleat√≥ria (vai no evento OnGameModeInit)
+//	Adiciona as classes necess·rias em ordem aleatÛria (vai no evento OnGameModeInit)
 //
 stock inicializar_skins()
 {
 	// Faz com que todos tenham o andar do CJ
 	UsePlayerPedAnims();
 	
-	// Cria um vetor para armazenar as IDs de skins v√°lidas
+	// Cria um vetor para armazenar as IDs de skins v·lidas
 	new skins[312];
 	
-    // Gera o vetor ordenado (311 √© a ID mais alta de skins n√£o-customizadas)
+    // Gera o vetor ordenado (311 È a ID mais alta de skins n„o-customizadas)
     for (new i = 0; i < sizeof(skins); i++)
     {
 		skins[i] = i;
@@ -94,10 +90,10 @@ stock inicializar_skins()
 	// Finalmente adiciona as classes de skins no gamemode
 	for (new i = 0; i < sizeof(skins); i++)
 	{
-		// Verifica se a ID de skin √© v√°lida
+		// Verifica se a ID de skin È v·lida
 		if (IsValidSkin(skins[i]))
 		{
-			// LOCAL: ARM√ÅRIO DO CJ (Interior 14)
+			// LOCAL: ARM¡RIO DO CJ (Interior 14)
 			AddPlayerClass(skins[i], 259.104156, -41.613594, 1002.023437, 99.760757, 0, 0, 0, 0, 0, 0);
 		}
 	}
@@ -105,11 +101,11 @@ stock inicializar_skins()
 	return 1;
 }
 //
-// Segunda parte da inicializa√ß√£o de skins (essa vai no evento OnPlayerRequestClass)
+// Segunda parte da inicializaÁ„o de skins (essa vai no evento OnPlayerRequestClass)
 //
 stock inicializar_skins2(playerid)
 {
-	// LOCAL: ARM√ÅRIO DO CJ (Interior 14)
+	// LOCAL: ARM¡RIO DO CJ (Interior 14)
 	SetPlayerInterior(playerid, 14);
 	SetPlayerPos(playerid, 259.104156, -41.613594, 1002.023437);
 	SetPlayerFacingAngle(playerid, 99.760757);
@@ -149,7 +145,7 @@ stock SendDeathToChat(playerid, killerid, reason, color)
 			{
 				format(death_msg, sizeof(death_msg), "%s teve %s enfiado no traseiro por %s", GetPlayerNameEx(playerid), GetWeaponNameEx(reason), GetPlayerNameEx(killerid));
 			}
-			// Lan√ßa-chamas (ou fogo causado por outro jogador)
+			// LanÁa-chamas (ou fogo causado por outro jogador)
 			case 37:
 			{
 				format(death_msg, sizeof(death_msg), "%s andou no fogo enquanto lutava com %s", GetPlayerNameEx(playerid), GetPlayerNameEx(killerid));
@@ -169,12 +165,12 @@ stock SendDeathToChat(playerid, killerid, reason, color)
 			{
 				format(death_msg, sizeof(death_msg), "%s atingiu %s com %s", GetPlayerNameEx(killerid), GetPlayerNameEx(playerid), GetWeaponNameEx(reason));
 			}
-			// G√°s
+			// G·s
 			case 17, 41, 42:
 			{
 				format(death_msg, sizeof(death_msg), "%s sufocou-se enquanto lutava com %s", GetPlayerNameEx(playerid), GetPlayerNameEx(killerid));
 			}
-			// Mensagem gen√©rica para morte com matador
+			// Mensagem genÈrica para morte com matador
 			default:
 			{
 				format(death_msg, sizeof(death_msg), "%s matou %s", GetPlayerNameEx(killerid), GetPlayerNameEx(playerid));
@@ -184,7 +180,7 @@ stock SendDeathToChat(playerid, killerid, reason, color)
 	// Caso tenha morrido sozinho...
 	else
 	{
-		// Mensagem gen√©rica para morte sem matador
+		// Mensagem genÈrica para morte sem matador
 		format(death_msg, sizeof(death_msg), "%s morreu", GetPlayerNameEx(playerid));
 	}
 	SendClientMessageToAll(color, death_msg);

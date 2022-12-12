@@ -2,10 +2,10 @@
  *  Arquivo:				of_colors.inc
  *  Tipo:					Biblioteca de Cores
  *  Autor:					Vico
- *  LicenÃ§a:				MIT
+ *  Licença:				MIT
 */
 
-/* ------------------------------- DEFINIÃ‡Ã•ES -------------------------------- */
+/* ------------------------------- DEFINIÇÕES -------------------------------- */
 // RGBA para Inteiro (para usar cores)
 #define RGBAToInt(%0,%1,%2,%3) ((16777216 * (%0)) + (65536 * (%1)) + (256 * (%2)) + (%3))
 
