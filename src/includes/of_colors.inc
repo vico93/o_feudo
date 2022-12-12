@@ -24,6 +24,6 @@
 #define MC_AQUA						RGBAToInt(85, 255, 255, 255)
 #define MC_RED						RGBAToInt(255, 85, 85, 255)
 #define MC_LIGHT_PURPLE				RGBAToInt(255, 85, 255, 255)
-#define MC_YELLOW					RGBAToInt(255, 255, 255, 255)
+#define MC_YELLOW					RGBAToInt(255, 255, 85, 255)
 #define MC_WHITE					RGBAToInt(255, 255, 255, 255)
 #define MC_MINECOIN_GOLD			RGBAToInt(221, 214, 5, 255)
