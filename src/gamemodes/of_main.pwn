@@ -380,6 +380,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 	dcmd(help, 4, cmdtext);					// Ajuda
 	dcmd(kill, 4, cmdtext);					// Matar (ou morrer)
 	dcmd(level, 5, cmdtext);				// Checar nível (debug?)
+	dcmd(tp, 2, cmdtext);					// Comando de teleporte
 	
 	// Caso digite um comando inexistente...
 	SendClientMessage(playerid, MC_RED, "Comando desconhecido. Digite /help para ver a lista de comandos");
@@ -448,6 +449,89 @@ dcmd_level(playerid, params[])
 	
 	format(stdout, sizeof(stdout), "Seu nível de permissão é %i", GetPlayerPermissionLevel(playerid));
 	SendClientMessage(playerid, MC_MINECOIN_GOLD, stdout);
+	
+	return 1;
+}
+
+//
+// Comando de teleporte. Tentando ser o mais próximo possível da implementação do Minecraft
+//
+dcmd_tp(playerid, params[])
+{
+	// Se o jogador que usou o comando tem nível maior ou igual à dois, procede na execução...
+	if (GetPlayerPermissionLevel(playerid) >= 2)
+	{
+		// Para a mensagem confirmando o teletransporte
+		new stdout[MAX_TEXT_OUTPUT];
+		
+		// Posição X, Y, Z, se houverem
+		new Float:posX, Float:posY, Float:posZ;
+		
+		// Nomes dos jogadores envolvidos, se houverem
+		new victim, destination = INVALID_PLAYER_ID;
+		
+		// Primeiro verifica se tentou passar coordenadas no comando...
+		if (!sscanf(params, "fff", posX, posY, posZ))
+		{
+			// Caso positivo, teleporta para as coordenadas especificadas
+			SetPlayerPos(playerid, posX, posY, posZ);
+			SetCameraBehindPlayer(playerid);
+			
+			// Avisa no chat e no log
+			format(stdout, sizeof(stdout), "%s teletransportou-se para %f, %f, %f", GetPlayerNameEx(playerid), posX, posY, posZ);
+			print(stdout);
+			SendClientMessageToAll(MC_YELLOW, stdout);
+		}
+		// Agora verifica se está tentando passar dois jogadores
+		else if (!sscanf(params, "uu", victim, destination))
+		{
+			// Teleporta o primeiro para a posição do segundo
+			GetPlayerPos(destination, posX, posY, posZ);
+			SetPlayerPos(victim, posX, posY, posZ);
+			SetCameraBehindPlayer(victim);
+			
+			// Avisa no chat e no log
+			format(stdout, sizeof(stdout), "%s foi teletransportado(a) para %s", GetPlayerNameEx(victim), GetPlayerNameEx(destination));
+			print(stdout);
+			SendClientMessageToAll(MC_YELLOW, stdout);
+		}
+		// Agora verifica se está tentando passar um jogador e coordenadas para teleportá-lo
+		else if (!sscanf(params, "ufff", victim, posX, posY, posZ))
+		{
+			// Teleporta o jogador para as coordenadas especificadas
+			SetPlayerPos(victim, posX, posY, posZ);
+			SetCameraBehindPlayer(victim);
+			
+			// Avisa no chat e no log
+			format(stdout, sizeof(stdout), "%s teletransportou-se para %f, %f, %f", GetPlayerNameEx(victim), posX, posY, posZ);
+			print(stdout);
+			SendClientMessageToAll(MC_YELLOW, stdout);
+		}
+		// Verifica agora se ele passou apenas um jogador, se for ele se teleporta pra lá
+		else if (!sscanf(params, "u", destination))
+		{
+			// Teleporta o para a posição do player indicado
+			GetPlayerPos(destination, posX, posY, posZ);
+			SetPlayerPos(playerid, posX, posY, posZ);
+			SetCameraBehindPlayer(playerid);
+
+			// Avisa no chat e no log
+			format(stdout, sizeof(stdout), "%s foi teletransportado(a) para %s", GetPlayerNameEx(playerid), GetPlayerNameEx(destination));
+			print(stdout);
+			SendClientMessageToAll(MC_YELLOW, stdout);
+		}
+		// Ao se esgotar as possibilidades, mostra como fazer o comando
+		else
+		{
+			SendClientMessage(playerid, MC_RED, "Uso: /tp [jogador alvo] <jogador de destino> OU /tp [jogador alvo] <x> <y> <z>");
+		}
+		
+	}
+	// ...caso contrário, envia um aviso de permissão
+	else
+	{
+		SendClientMessage(playerid, MC_RED, "Você não tem permissão para usar este comando");
+	}
 	
 	return 1;
 }
