@@ -69,6 +69,11 @@ public OnPlayerRequestClass(playerid, classid)
 //
 public OnPlayerConnect(playerid)
 {
+	// Informa no chat a entrada do jogador
+	new join_msg[MAX_TEXT_OUTPUT];
+	format(join_msg, sizeof(join_msg), "%s entrou na partida", GetPlayerNameEx(playerid));
+	SendClientMessageToAll(MC_YELLOW, join_msg);
+	
 	// Informa no killfeed a entrada do jogador
 	SendDeathMessage(INVALID_PLAYER_ID, playerid, 200);
 	
@@ -92,6 +97,11 @@ public OnPlayerConnect(playerid)
 //
 public OnPlayerDisconnect(playerid, reason)
 {
+	// Informa no chat a saída do jogador
+	new left_msg[MAX_TEXT_OUTPUT];
+	format(left_msg, sizeof(left_msg), "%s saiu da partida", GetPlayerNameEx(playerid));
+	SendClientMessageToAll(MC_YELLOW, left_msg);
+	
 	// Informa no killfeed a saída do jogador
 	SendDeathMessage(INVALID_PLAYER_ID, playerid, 201);
 
@@ -107,6 +117,7 @@ public OnPlayerSpawn(playerid)
 	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
 	SetPlayerFacingAngle(playerid, 7.3733);
 	SetPlayerInterior(playerid, 0);
+	SetCameraBehindPlayer(playerid);
 	
 	return 1;
 }
@@ -419,7 +430,7 @@ dcmd_kill(playerid, params[])
 }
 
 //
-//
+// DEBUG
 //
 dcmd_level(playerid, params[])
 {
