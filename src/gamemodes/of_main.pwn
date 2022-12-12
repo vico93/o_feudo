@@ -9,6 +9,7 @@
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include "../includes/of_utils.inc"						// Biblioteca do projeto
 #include "../includes/of_colors.inc"					// Biblioteca de cores
+#include "../includes/of_playerdata.inc"				// Biblioteca de banco de dados
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 #define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
@@ -31,6 +32,9 @@ public OnGameModeInit()
 	// Define o nome do gamemode
 	SetGameModeText(GM_NAME);
 	
+	// Inicializa o banco de dados
+	InitDatabase();
+	
 	// Deshabilita os ENEXs (cones amarelos para acesso aos interiores)
 	DisableInteriorEnterExits();
 	
@@ -48,6 +52,9 @@ public OnGameModeInit()
 //
 public OnGameModeExit()
 {
+	// Encerra o acesso ao banco de dados
+	CloseDatabase();
+	
 	// Confirma que foi encerrado com sucesso
 	printf("\"%s\" encerrado com sucesso!", GM_NAME);
 	return 1;
