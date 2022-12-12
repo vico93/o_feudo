@@ -8,3 +8,4 @@
 /src/filterscripts/*.amx
 /src/bans.json
 /src/log.txt
+/src/scriptfiles/playerdata.db
