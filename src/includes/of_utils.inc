@@ -185,3 +185,33 @@ stock SendDeathToChat(playerid, killerid, reason, color)
 	}
 	SendClientMessageToAll(color, death_msg);
 }
+
+//
+// Teleporta o jogador para uma certa posição, com opções de "levar" o veículo que ele está dirigindo ou não
+//
+stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, interior, bool:bring_car)
+{
+	// Verifica se o jogador está em um veículo como condutor/motorista E se foi sinalizado na função para teleportar com o veículo
+	if ((GetPlayerVehicleSeat(playerid) == 0) && bring_car)
+	{
+		// ...teleporta O VEÍCULO (com o jogador dentro)
+		SetVehiclePos(GetPlayerVehicleID(playerid), x, y, z);
+		
+		// Se o interior passado for diferente do interior que o jogador está no momento...
+		if (GetPlayerInterior(playerid) != interior)
+		{
+			// Altera o interior tanto do jogador como do veículo
+			SetPlayerInterior(playerid, interior);
+			LinkVehicleToInterior(GetPlayerVehicleID(playerid), interior);
+		}
+	}
+	// ...se o jogador estiver a pé ou é passageiro...
+	else
+	{
+		// ...teleporta o player em si...
+		SetPlayerPos(playerid, x, y, z);
+		// ...altera o interior também se o passado for diferente
+		if (GetPlayerInterior(playerid) != interior) SetPlayerInterior(playerid, interior);
+	}
+
+}

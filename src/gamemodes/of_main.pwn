@@ -473,8 +473,8 @@ dcmd_tp(playerid, params[])
 		// Primeiro verifica se tentou passar coordenadas no comando...
 		if (!sscanf(params, "fff", posX, posY, posZ))
 		{
-			// Caso positivo, teleporta para as coordenadas especificadas
-			SetPlayerPos(playerid, posX, posY, posZ);
+			// Caso positivo, teleporta para as coordenadas especificadas (TODO: permitir passar valores de interior e levar ou não veículo)
+			TeleportPlayer(playerid, posX, posY, posZ, 0, true);
 			SetCameraBehindPlayer(playerid);
 			
 			// Avisa no chat e no log
@@ -485,9 +485,9 @@ dcmd_tp(playerid, params[])
 		// Agora verifica se está tentando passar dois jogadores
 		else if (!sscanf(params, "uu", victim, destination))
 		{
-			// Teleporta o primeiro para a posição do segundo
+			// Teleporta o primeiro para a posição do segundo (TODO: permitir passar valores de interior e levar ou não veículo)
 			GetPlayerPos(destination, posX, posY, posZ);
-			SetPlayerPos(victim, posX, posY, posZ);
+			TeleportPlayer(victim, posX, posY, posZ, 0, true);
 			SetCameraBehindPlayer(victim);
 			
 			// Avisa no chat e no log
@@ -498,8 +498,8 @@ dcmd_tp(playerid, params[])
 		// Agora verifica se está tentando passar um jogador e coordenadas para teleportá-lo
 		else if (!sscanf(params, "ufff", victim, posX, posY, posZ))
 		{
-			// Teleporta o jogador para as coordenadas especificadas
-			SetPlayerPos(victim, posX, posY, posZ);
+			// Teleporta o jogador para as coordenadas especificadas (TODO: permitir passar valores de interior e levar ou não veículo)
+			TeleportPlayer(victim, posX, posY, posZ, 0, true);
 			SetCameraBehindPlayer(victim);
 			
 			// Avisa no chat e no log
@@ -510,9 +510,9 @@ dcmd_tp(playerid, params[])
 		// Verifica agora se ele passou apenas um jogador, se for ele se teleporta pra lá
 		else if (!sscanf(params, "u", destination))
 		{
-			// Teleporta o para a posição do player indicado
+			// Teleporta o para a posição do player indicado (TODO: permitir passar valores de interior e levar ou não veículo)
 			GetPlayerPos(destination, posX, posY, posZ);
-			SetPlayerPos(playerid, posX, posY, posZ);
+			TeleportPlayer(playerid, posX, posY, posZ, 0, true);
 			SetCameraBehindPlayer(playerid);
 
 			// Avisa no chat e no log
