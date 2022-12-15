@@ -20,6 +20,11 @@
 
 /* -------------------------------- FUNÇÕES ---------------------------------- */
 //
+// Uma cópia exata (!?) da função rand() do PHP
+//
+stock rand(minnum = cellmin,maxnum = cellmax) return random(maxnum - minnum + 1) + minnum;
+
+//
 //	Verifica se a ID de skin passada é válida
 //
 stock IsValidSkin(skinid)
@@ -29,6 +34,16 @@ stock IsValidSkin(skinid)
         return 0;
 	}	
     return 1;
+}
+
+//
+// Verifica se o player já spawnou no mundo (saiu da tela de spawn)
+//
+stock IsPlayerSpawned(playerid)
+{
+	new statex = GetPlayerState(playerid);
+	if(statex != PLAYER_STATE_NONE && statex != PLAYER_STATE_WASTED && statex != PLAYER_STATE_SPAWNED) return 1;
+	return 0;
 }
 
 //
