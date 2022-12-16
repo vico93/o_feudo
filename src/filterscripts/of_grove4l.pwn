@@ -24,7 +24,7 @@ public OnFilterScriptInit()
 	SetVehicleNumberPlate(sweet_greenwood, "GROVE4L ");
 	
 	// Confirma que foi iniciado com sucesso
-	printf("\"%s\" iniciado com sucesso!", FS_NAME);
+	printf("FS \"%s\" iniciado com sucesso!", FS_NAME);
 	
 	return 1;
 }
@@ -38,7 +38,7 @@ public OnFilterScriptExit()
 	}	
 	
 	// Confirma que foi encerrado com sucesso
-	printf("\"%s\" encerrado com sucesso!", FS_NAME);
+	printf("FS \"%s\" encerrado com sucesso!", FS_NAME);
 
 	return 1;
 }
