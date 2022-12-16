@@ -1,6 +1,5 @@
 # Open.MP
-/ntd/
-/spawn_generator/
+/debug/
 /src/components
 /src/omp-server*
 /src/config.json
