@@ -14,6 +14,65 @@
 
 /* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
 new Text:clock_hud;									// Textdraw do relógio
+new update_timer = -1;								// Timer pra atualizar a hora
+
+/* -------------------------------- FUNÇÕES ---------------------------------- */
+forward FrstUpdateTime();
+forward UpdateTime();
+
+public FrstUpdateTime()
+{
+	// Busca a hora do sistema...
+	new hours, minutes = 0;
+	gettime(hours, minutes, _);
+	
+	// ...atualiza a textdraw do relógio...
+	new clock_string[] = "00:00";
+	format(clock_string, sizeof(clock_string), "%i:%i", hours, minutes);
+	TextDrawSetString(clock_hud, clock_string);
+	
+	// ...altera a hora do server
+	SetWorldTime(hours);
+	
+	// ...e por fim altera a hora para todos os membros conectados
+	for (new i = 0; i < MAX_PLAYERS; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			SetPlayerTime(i, hours, minutes);
+		}
+	}
+	
+	// Inicia o timer verdadeiro para atualizar a hora
+	update_timer = SetTimer("UpdateTime", 60000, true);
+	return 1;
+}
+
+public UpdateTime()
+{
+	// Busca a hora do sistema...
+	new hours, minutes = 0;
+	gettime(hours, minutes, _);
+
+	// ...atualiza a textdraw do relógio...
+	new clock_string[] = "00:00";
+	format(clock_string, sizeof(clock_string), "%i:%i", hours, minutes);
+	TextDrawSetString(clock_hud, clock_string);
+	
+	// ...altera a hora do server
+	SetWorldTime(hours);
+	
+	// ...e por fim altera a hora para todos os membros conectados
+	for (new i = 0; i < MAX_PLAYERS; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			SetPlayerTime(i, hours, minutes);
+		}
+	}
+
+	return 1;
+}
 
 /* -------------------------------- EVENTOS ---------------------------------- */
 //
@@ -36,6 +95,19 @@ public OnFilterScriptInit()
 	TextDrawSetProportional(clock_hud, 1);
 	TextDrawSetSelectable(clock_hud, 0);
 	
+	// Captura a hora e os segundos atuais e seta a hora do server...
+	new hours, seconds = 0;
+	gettime(hours, _, seconds);
+	SetWorldTime(hours);
+	
+	// ...atualiza a textdraw do relógio...
+	new clock_string[] = "00:00";
+	format(clock_string, sizeof(clock_string), "%i:00", hours);
+	TextDrawSetString(clock_hud, clock_string);
+	
+	// ..e roda um timer temporário para fazer a próxima atualização de hora e disparar o timer "verdadeiro", que vai rodar em toda a virada de minuto
+	SetTimer("FrstUpdateTime", (60 - seconds) * 1000, false);
+	
 	// Confirma que foi iniciado com sucesso
 	printf("FS \"%s\" iniciado com sucesso!", FS_NAME);
 	return 1;
@@ -45,6 +117,9 @@ public OnFilterScriptExit()
 {
 	// Destrói a textdraw do relógio
 	TextDrawDestroy(clock_hud);
+	
+	// Destrói o timer de atualização de tempo (se houver)
+	if (update_timer != -1) KillTimer(update_timer);
 	
 	// Confirma que foi encerrado com sucesso
 	printf("FS \"%s\" encerrado com sucesso!", FS_NAME);
