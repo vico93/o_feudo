@@ -28,7 +28,7 @@ public FrstUpdateTime()
 	
 	// ...atualiza a textdraw do relógio...
 	new clock_string[] = "00:00";
-	format(clock_string, sizeof(clock_string), "%i:%i", hours, minutes);
+	format(clock_string, sizeof(clock_string), "%02d:%02d", hours, minutes);
 	TextDrawSetString(clock_hud, clock_string);
 	
 	// ...altera a hora do server
@@ -56,7 +56,7 @@ public UpdateTime()
 
 	// ...atualiza a textdraw do relógio...
 	new clock_string[] = "00:00";
-	format(clock_string, sizeof(clock_string), "%i:%i", hours, minutes);
+	format(clock_string, sizeof(clock_string), "%02d:%02d", hours, minutes);
 	TextDrawSetString(clock_hud, clock_string);
 	
 	// ...altera a hora do server
@@ -102,7 +102,7 @@ public OnFilterScriptInit()
 	
 	// ...atualiza a textdraw do relógio...
 	new clock_string[] = "00:00";
-	format(clock_string, sizeof(clock_string), "%i:00", hours);
+	format(clock_string, sizeof(clock_string), "%02d:00", hours);
 	TextDrawSetString(clock_hud, clock_string);
 	
 	// ..e roda um timer temporário para fazer a próxima atualização de hora e disparar o timer "verdadeiro", que vai rodar em toda a virada de minuto
