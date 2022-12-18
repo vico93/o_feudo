@@ -20,8 +20,8 @@ new sweet_greenwood = INVALID_VEHICLE_ID;			// Armazenará a ID do Greenwood
 public OnFilterScriptInit()
 {
 	// TEMP
-	sweet_greenwood = AddStaticVehicle(492,2507.9951,-1669.6030,13.1653,349.4355,77,26);
-	SetVehicleNumberPlate(sweet_greenwood, "GROVE4L ");
+	sweet_greenwood = AddStaticVehicle(492, 2507.823, -1671.88, 12.1678,347.15,59,34);
+	SetVehicleNumberPlate(sweet_greenwood, "GROVE4L");
 	
 	// Confirma que foi iniciado com sucesso
 	printf("FS \"%s\" iniciado com sucesso!", FS_NAME);
