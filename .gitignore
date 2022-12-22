@@ -9,3 +9,10 @@
 /src/bans.json
 /src/log.txt
 /src/scriptfiles/playerdata.db
+/npc_recorder/components
+/npc_recorder/omp-server*
+/npc_recorder/config.json
+/npc_recorder/server.cfg
+/npc_recorder/gamemodes/*.amx
+/npc_recorder/filterscripts/*.amx
+/npc_recorder/bans.json
