@@ -1,5 +1,6 @@
 # Open.MP
 /debug/
+
 /src/components
 /src/omp-server*
 /src/config.json
@@ -9,12 +10,12 @@
 /src/bans.json
 /src/log.txt
 /src/scriptfiles/playerdata.db
-/npc_recorder/components
-/npc_recorder/omp-server*
-/npc_recorder/config.json
-/npc_recorder/server.cfg
+
 /npc_recorder/gamemodes/*.amx
 /npc_recorder/filterscripts/*.amx
-/npc_recorder/bans.json
-/npc_recorder/log.txt
+/npc_recorder/announce.exe
+/npc_recorder/samp-license.txt
 /npc_recorder/samp-npc.exe
+/npc_recorder/samp-server.exe
+/npc_recorder/server-readme.txt
+/npc_recorder/server.cfg
