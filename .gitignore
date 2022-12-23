@@ -16,3 +16,5 @@
 /npc_recorder/gamemodes/*.amx
 /npc_recorder/filterscripts/*.amx
 /npc_recorder/bans.json
+/npc_recorder/log.txt
+/npc_recorder/samp-npc.exe
