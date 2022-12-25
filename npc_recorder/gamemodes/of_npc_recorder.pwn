@@ -302,6 +302,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	// Por enquanto gravações apenas em veículos...
 	if (IsPlayerAdmin(playerid) && IsPlayerInAnyVehicle(playerid))
 	{
+		// Saída para o usuário
+		new stdout[MAX_TEXT_OUTPUT];
+		
 		// Caso tenha apertado a tecla Y
 		if ((newkeys & KEY_YES) && !(oldkeys & KEY_YES))
 		{
@@ -310,7 +313,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				StartRecordingPlayerData(playerid, PLAYER_RECORDING_TYPE_DRIVER, scriptname);
 				is_recording = true;
-				SendClientMessage(playerid, MC_GOLD, "Gravação de NPC iniciada!");
+				format(stdout, sizeof(stdout), "Gravação de NPC iniciada! Arquivo -> scriptfiles/%s.rec", scriptname);
+				SendClientMessage(playerid, MC_GOLD, stdout);
 				PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
 			}
 			else
@@ -327,7 +331,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				StopRecordingPlayerData(playerid);
 				is_recording = false;
-				SendClientMessage(playerid, MC_GOLD, "Gravação de NPC terminada!");
+				format(stdout, sizeof(stdout), "Gravação de NPC encerrada! Deve ter sido salvo em -> scriptfiles/%s.rec", scriptname);
+				SendClientMessage(playerid, MC_GOLD, stdout);
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
 				scriptname = "";
 			}
