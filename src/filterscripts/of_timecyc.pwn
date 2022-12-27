@@ -1,5 +1,5 @@
 /*
- *  Arquivo:				of_realtime.pwn
+ *  Arquivo:				of_timecyc.pwn
  *  Tipo:					Filterscript para adicionar tempo real no servidor
  *  Autor:					Vico
  *  Licença:				MIT
