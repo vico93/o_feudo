@@ -1,0 +1,4 @@
+# Arquivos do Open.MP server
+/components/
+/config.json
+/omp-server*
