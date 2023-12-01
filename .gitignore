@@ -1,4 +1,9 @@
 # Arquivos do Open.MP server
+*.amx
+*.log
+*.dmp
 /components/
 /config.json
 /omp-server*
+/bans.json
+/log.txt
