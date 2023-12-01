@@ -7,7 +7,8 @@
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include <open.mp>
+#include "../includes/of_b_principal.inc"				// Biblioteca principal do GameMode
+#include "../includes/of_b_cores.inc"					// Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 #define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
@@ -36,6 +37,8 @@ public OnGameModeInit()
 /* Ao encerrar o gamemode */
 public OnGameModeExit()
 {
+	// Confirma que foi encerrado com sucesso
+	printf("\"%s\" encerrado com sucesso!", GM_NAME);
 	return 1;
 }
 
