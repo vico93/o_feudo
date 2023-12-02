@@ -7,10 +7,11 @@
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include "../includes/of_b_principal.inc"				// Biblioteca principal do GameMode
-#include "../includes/of_b_cores.inc"					// Biblioteca de cores
+#include "../includes/of_i_base.inc"					// Biblioteca principal do GameMode
+#include "../includes/of_i_colors.inc"					// Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
+#pragma warning disable 239								// TODO: Retirar essa desativação assim que souber como contornar
 #define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
 
 /* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
@@ -29,6 +30,9 @@ public OnGameModeInit()
 	// Define o nome do gamemode
 	SetGameModeText(GM_NAME);
 	
+	// Registra as classes (skins) "escolhíveis" no gamemode
+	RegisterSkins();
+	
 	// Confirma que foi iniciado com sucesso
 	printf("\"%s\" iniciado com sucesso!", GM_NAME);
 	return 1;
@@ -42,28 +46,73 @@ public OnGameModeExit()
 	return 1;
 }
 
+//
+// Quando o jogador se conecta ao servidor
+//
 public OnPlayerConnect(playerid)
 {
+	// Informa no chat a entrada do jogador
+	new join_msg[MAX_TEXT_OUTPUT];
+	format(join_msg, sizeof(join_msg), "%s entrou na partida", GetPlayerNameRet(playerid));
+	SendClientMessageToAll(MC_YELLOW, join_msg);
+
+	// Informa no killfeed a entrada do jogador
+	SendDeathMessage(INVALID_PLAYER_ID, playerid, 200);	
+
 	return 1;
 }
 
+//
+// Quando o jogador desconecta do servidor
+//
 public OnPlayerDisconnect(playerid, reason)
 {
+	// Informa no chat a saída do jogador
+	new left_msg[MAX_TEXT_OUTPUT];
+	format(left_msg, sizeof(left_msg), "%s saiu da partida", GetPlayerNameRet(playerid));
+	SendClientMessageToAll(MC_YELLOW, left_msg);
+	
+	// Informa no killfeed a saída do jogador
+	SendDeathMessage(INVALID_PLAYER_ID, playerid, 201);
+	
 	return 1;
 }
 
+//
+// Quando o jogador alterna entre as skins/classes na tela de spawn
+//
 public OnPlayerRequestClass(playerid, classid)
 {
+	// Inicializa posições e interior da tela de escolha de skins (LOCAL: ARMÁRIO DO CJ - interior 14)
+	PositionPlayerSpawn(playerid);
+	
 	return 1;
 }
 
+//
+// Quando o jogador é "spawnado" no mundo
+//
 public OnPlayerSpawn(playerid)
 {
+	// LOCAL: GROVE STREET (um pouco mais à frente da porta da casa do CJ)
+	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
+	SetPlayerFacingAngle(playerid, 7.3733);
+	SetPlayerInterior(playerid, 0);
+	SetPlayerWeather(playerid, GetWeather());
+	SetCameraBehindPlayer(playerid);
 	return 1;
 }
 
+//
+// Quando o jogador morre
+//
 public OnPlayerDeath(playerid, killerid, WEAPON:reason)
 {
+	// Mostra o acontecido no killfeed
+	SendDeathMessage(killerid, playerid, reason);
+	
+	// Envia o anúncio da morte para o chat
+	SendDeathToChat(playerid, killerid, reason, MC_RED);
 	return 1;
 }
 
@@ -90,11 +139,6 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerRequestSpawn(playerid)
 {
 	return 1;
-}
-
-public OnPlayerCommandText(playerid, cmdtext[])
-{
-	return 0;
 }
 
 public OnPlayerText(playerid, text[])
@@ -202,6 +246,9 @@ public OnClientCheckResponse(playerid, actionid, memaddr, retndata)
 	return 1;
 }
 
+//
+// Acionado durante qualquer tentativa de login via RCON
+//
 public OnRconLoginAttempt(ip[], password[], success)
 {
 	return 1;
@@ -387,4 +434,28 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 	return 1;
 }
 
+//
+// Quando o jogador envia um comando
+//
+public OnPlayerCommandText(playerid, cmdtext[])
+{
+	dcmd(help, 4, cmdtext);					// Ajuda
+
+	return 0;
+}
+
 /* ------------------------------- COMANDOS ------------------------------- */
+//
+// Comando de ajuda
+//
+dcmd_help(playerid, params[])
+{
+	// Caso não vá utilizar argumentos...
+	#pragma unused params
+	
+	// Envia a tabela de comandos
+	SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando página de ajuda 1 de 1 (/help <página>) ---");
+	SendClientMessage(playerid, MC_WHITE, "/help [página/nome do comando]");
+	SendClientMessage(playerid, MC_DARK_GREEN, "---------------------------------------------------------");
+    return 1;
+}

@@ -1,5 +1,5 @@
 /*
- *  Arquivo:				of_colors.inc
+ *  Arquivo:				of_i_colors.inc
  *  Tipo:					Biblioteca de Cores
  *  Autor:					Vico
  *  Licença:				MIT
