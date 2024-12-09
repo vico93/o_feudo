@@ -284,12 +284,6 @@ public OnPlayerEditAttachedObject(playerid, EDIT_RESPONSE:response, index, model
 }
 
 
-public OnPlayerEditObject(playerid, playerobject, objectid, EDIT_RESPONSE:response, Float:fX, Float:fY, Float:fZ, Float:rotationX, Float:rotationY, Float:rotationZ)
-{
-	return 1;
-}
-
-
 public OnPlayerEnterCheckpoint(playerid)
 {
 	return 1;
