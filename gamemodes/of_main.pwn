@@ -2,24 +2,24 @@
  *  Arquivo:				of_main.pwn
  *  Tipo:					Gamemode 4Fun
  *  Autor:					Vico
- *  Licen√ßa:				MIT
- *  Vers√£o:					0.1b
+ *  LicenÁa:				MIT
+ *  Vers„o:					0.1b
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include "../includes/of_i_base.inc"					// Biblioteca principal do GameMode
 #include "../includes/of_i_colors.inc"					// Biblioteca de cores
 
-/* ------------------------------- DEFINI√á√ïES -------------------------------- */
-#pragma warning disable 239								// TODO: Retirar essa desativa√ß√£o assim que souber como contornar
+/* ------------------------------- DEFINI«’ES -------------------------------- */
+#pragma warning disable 239								// TODO: Retirar essa desativaÁ„o assim que souber como contornar
 #define	GM_NAME "O Feudo (4Fun) 0.1b"					// Nome do GameMode
 
-/* ---------------------------- VARI√ÅVEIS GLOBAIS ---------------------------- */
+/* ---------------------------- VARI¡VEIS GLOBAIS ---------------------------- */
 
-/* ----------------------------- M√âTODO PRINCIPAL ---------------------------- */
+/* ----------------------------- M…TODO PRINCIPAL ---------------------------- */
 main()
 {
-	// Mensagem ap√≥s todo o total carregamento do sistema
+	// Mensagem apÛs todo o total carregamento do sistema
     print("Feito! Servidor funcional!");
 }
 
@@ -30,7 +30,7 @@ public OnGameModeInit()
 	// Define o nome do gamemode
 	SetGameModeText(GM_NAME);
 	
-	// Registra as classes (skins) "escolh√≠veis" no gamemode
+	// Registra as classes (skins) "escolhÌveis" no gamemode
 	RegisterSkins();
 	
 	// Confirma que foi iniciado com sucesso
@@ -67,12 +67,12 @@ public OnPlayerConnect(playerid)
 //
 public OnPlayerDisconnect(playerid, reason)
 {
-	// Informa no chat a sa√≠da do jogador
+	// Informa no chat a saÌda do jogador
 	new left_msg[MAX_TEXT_OUTPUT];
 	format(left_msg, sizeof(left_msg), "%s saiu da partida", GetPlayerNameRet(playerid));
 	SendClientMessageToAll(MC_YELLOW, left_msg);
 	
-	// Informa no killfeed a sa√≠da do jogador
+	// Informa no killfeed a saÌda do jogador
 	SendDeathMessage(INVALID_PLAYER_ID, playerid, 201);
 	
 	return 1;
@@ -83,18 +83,18 @@ public OnPlayerDisconnect(playerid, reason)
 //
 public OnPlayerRequestClass(playerid, classid)
 {
-	// Inicializa posi√ß√µes e interior da tela de escolha de skins (LOCAL: ARM√ÅRIO DO CJ - interior 14)
+	// Inicializa posiÁıes e interior da tela de escolha de skins (LOCAL: ARM¡RIO DO CJ - interior 14)
 	PositionPlayerSpawn(playerid);
 	
 	return 1;
 }
 
 //
-// Quando o jogador √© "spawnado" no mundo
+// Quando o jogador È "spawnado" no mundo
 //
 public OnPlayerSpawn(playerid)
 {
-	// LOCAL: GROVE STREET (um pouco mais √† frente da porta da casa do CJ)
+	// LOCAL: GROVE STREET (um pouco mais ‡ frente da porta da casa do CJ)
 	SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
 	SetPlayerFacingAngle(playerid, 7.3733);
 	SetPlayerInterior(playerid, 0);
@@ -111,7 +111,7 @@ public OnPlayerDeath(playerid, killerid, WEAPON:reason)
 	// Mostra o acontecido no killfeed
 	SendDeathMessage(killerid, playerid, reason);
 	
-	// Envia o an√∫ncio da morte para o chat
+	// Envia o an˙ncio da morte para o chat
 	SendDeathToChat(playerid, killerid, reason, MC_RED);
 	return 1;
 }
@@ -274,11 +274,6 @@ public OnPlayerSelectObject(playerid, SELECT_OBJECT:type, objectid, modelid, Flo
 	return 1;
 }
 
-public OnPlayerEditObject(playerid, playerobject, objectid, EDIT_RESPONSE:response, Float:fX, Float:fY, Float:fZ, Float:rotationX, Float:rotationY, Float:rotationZ)
-{
-	return 1;
-}
-
 public OnPlayerEditAttachedObject(playerid, EDIT_RESPONSE:response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
 	return 1;
@@ -350,11 +345,6 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, CLICK_SOURCE:source)
 }
 
 public OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ)
-{
-	return 1;
-}
-
-public OnScriptCash(playerid, amount, source)
 {
 	return 1;
 }
@@ -450,12 +440,12 @@ public OnPlayerCommandText(playerid, cmdtext[])
 //
 dcmd_help(playerid, params[])
 {
-	// Caso n√£o v√° utilizar argumentos...
+	// Caso n„o v· utilizar argumentos...
 	#pragma unused params
 	
 	// Envia a tabela de comandos
-	SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando p√°gina de ajuda 1 de 1 (/help <p√°gina>) ---");
-	SendClientMessage(playerid, MC_WHITE, "/help [p√°gina/nome do comando]");
+	SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando p·gina de ajuda 1 de 1 (/help <p·gina>) ---");
+	SendClientMessage(playerid, MC_WHITE, "/help [p·gina/nome do comando]");
 	SendClientMessage(playerid, MC_DARK_GREEN, "---------------------------------------------------------");
     return 1;
 }
