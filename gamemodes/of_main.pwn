@@ -7,8 +7,8 @@
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include "../includes/of_i_base.inc"					// Biblioteca principal do GameMode
-#include "../includes/of_i_colors.inc"					// Biblioteca de cores
+#include <of_i_base>									// Biblioteca principal do GameMode
+#include <of_i_colors>									// Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 #pragma warning disable 239								// TODO: Retirar essa desativação assim que souber como contornar
