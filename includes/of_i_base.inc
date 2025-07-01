@@ -7,7 +7,7 @@
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include <open.mp>											// Biblioteca padrão do open.mp
-#include "../includes/sscanf.inc"							// Biblioteca sscanf
+#include <sscanf>											// Biblioteca sscanf (TEMPORÁRIO!)
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 // DCMD
