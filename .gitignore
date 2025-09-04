@@ -1,11 +1,13 @@
-# Arquivos do Open.MP server
-*.amx
-*.log
-*.dmp
-/components/
-/config.json
-/omp-server*
-/bans.json
-/log.txt
-/amxsscanf.dll
-/amxsscanf.so
+# Pasta com .amx e coisas à copiar pro servidor
+/build/
+
+# Configuração do VSCode
+/.vscode/
+/.pawnignore
+
+# Bats pra compilar e subir os arquivos pro Raspberry Pi
+/deploy.bat
+/build.bat
+
+# Regras do RooCode
+/.roorules
