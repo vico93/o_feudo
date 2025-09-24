@@ -7,11 +7,9 @@
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
 #include <open.mp>											// Biblioteca padrão do open.mp
-#include <sscanf>											// Biblioteca sscanf (TEMPORÁRIO!)
+#include <sscanf2>											// Biblioteca sscanf
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
-// DCMD
-#define dcmd(%1,%2,%3) if ((strcmp((%3)[1], #%1, true, (%2)) == 0) && ((((%3)[(%2) + 1] == 0) && (dcmd_%1(playerid, "")))||(((%3)[(%2) + 1] == 32) && (dcmd_%1(playerid, (%3)[(%2) + 2]))))) return 1
 
 #define MAX_STRING 1024										// Tamanho máximo de string
 #define MAX_TEXT_OUTPUT 144									// Tamanho máximo de string em SendClientMessage

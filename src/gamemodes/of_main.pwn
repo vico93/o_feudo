@@ -16,7 +16,6 @@
 #include <of_i_colors>                                    // Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
-#pragma warning disable 239                                // TODO: Retirar essa desativação assim que souber como contornar
 #define    GM_NAME "O Feudo (4Fun) 0.1b"                    // Nome do GameMode
 
 /* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
@@ -434,8 +433,6 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 //
 public OnPlayerCommandText(playerid, cmdtext[])
 {
-    dcmd(help, 4, cmdtext);                    // Ajuda
-
     return 0;
 }
 
@@ -443,7 +440,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 //
 // Comando de ajuda
 //
-dcmd_help(playerid, params[])
+/* cmd:help(playerid, params[])
 {
     // Caso não vá utilizar argumentos...
     #pragma unused params
@@ -453,4 +450,4 @@ dcmd_help(playerid, params[])
     SendClientMessage(playerid, MC_WHITE, "/help [página/nome do comando]");
     SendClientMessage(playerid, MC_DARK_GREEN, "---------------------------------------------------------");
     return 1;
-}
+} */
