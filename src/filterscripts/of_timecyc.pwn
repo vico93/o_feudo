@@ -2,21 +2,21 @@
  *  Arquivo:				of_timecyc.pwn
  *  Tipo:					Filterscript para adicionar tempo real no servidor
  *  Autor:					Vico
- *  LicenÁa:				MIT
+ *  Licenùa:				MIT
 */
 
-/* ------------------------------- DEFINI«’ES -------------------------------- */
-#define FILTERSCRIPT								// CabeÁalho do FilterScript
+/* ------------------------------- DEFINIùùES -------------------------------- */
+#define FILTERSCRIPT								// Cabeùalho do FilterScript
 #define	FS_NAME "Hora Real"							// Nome do FilterScript
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include <open.mp>									// Biblioteca padr„o do open.mp
+#include <open.mp>									// Biblioteca padrùo do open.mp
 
-/* ---------------------------- VARI¡VEIS GLOBAIS ---------------------------- */
-new Text:clock_hud;									// Textdraw do relÛgio
+/* ---------------------------- VARIùVEIS GLOBAIS ---------------------------- */
+new Text:clock_hud;									// Textdraw do relùgio
 new update_timer = -1;								// Timer pra atualizar a hora
 
-/* -------------------------------- FUN«’ES ---------------------------------- */
+/* -------------------------------- FUNùùES ---------------------------------- */
 forward FrstUpdateTime();
 forward UpdateTime();
 
@@ -26,7 +26,7 @@ public FrstUpdateTime()
 	new hours, minutes = 0;
 	gettime(hours, minutes, _);
 	
-	// ...atualiza a textdraw do relÛgio...
+	// ...atualiza a textdraw do relùgio...
 	new clock_string[] = "00:00";
 	format(clock_string, sizeof(clock_string), "%02d:%02d", hours, minutes);
 	TextDrawSetString(clock_hud, clock_string);
@@ -54,7 +54,7 @@ public UpdateTime()
 	new hours, minutes = 0;
 	gettime(hours, minutes, _);
 
-	// ...atualiza a textdraw do relÛgio...
+	// ...atualiza a textdraw do relùgio...
 	new clock_string[] = "00:00";
 	format(clock_string, sizeof(clock_string), "%02d:%02d", hours, minutes);
 	TextDrawSetString(clock_hud, clock_string);
@@ -76,11 +76,11 @@ public UpdateTime()
 
 /* -------------------------------- EVENTOS ---------------------------------- */
 //
-// InicializaÁ„o do filterscript
+// Inicializaùùo do filterscript
 //
 public OnFilterScriptInit()
 {
-	// Cria a textdraw do relÛgio
+	// Cria a textdraw do relùgio
 	clock_hud = TextDrawCreate(600.000000, 17.000000, "00:00");
 	TextDrawFont(clock_hud, TEXT_DRAW_FONT_3);
 	TextDrawLetterSize(clock_hud, 0.370833, 1.850000);
@@ -100,12 +100,12 @@ public OnFilterScriptInit()
 	gettime(hours, _, seconds);
 	SetWorldTime(hours);
 	
-	// ...atualiza a textdraw do relÛgio...
+	// ...atualiza a textdraw do relùgio...
 	new clock_string[] = "00:00";
 	format(clock_string, sizeof(clock_string), "%02d:00", hours);
 	TextDrawSetString(clock_hud, clock_string);
 	
-	// ..e roda um timer tempor·rio para fazer a prÛxima atualizaÁ„o de hora e disparar o timer "verdadeiro", que vai rodar em toda a virada de minuto
+	// ..e roda um timer temporùrio para fazer a prùxima atualizaùùo de hora e disparar o timer "verdadeiro", que vai rodar em toda a virada de minuto
 	SetTimer("FrstUpdateTime", (60 - seconds) * 1000, false);
 	
 	// Confirma que foi iniciado com sucesso
@@ -115,10 +115,10 @@ public OnFilterScriptInit()
 
 public OnFilterScriptExit()
 {
-	// DestrÛi a textdraw do relÛgio
+	// Destrùi a textdraw do relùgio
 	TextDrawDestroy(clock_hud);
 	
-	// DestrÛi o timer de atualizaÁ„o de tempo (se houver)
+	// Destrùi o timer de atualizaùùo de tempo (se houver)
 	if (update_timer != -1) KillTimer(update_timer);
 	
 	// Confirma que foi encerrado com sucesso
@@ -143,11 +143,11 @@ public OnPlayerDisconnect(playerid, reason)
 }
 
 //
-// Quando o jogador È "spawnado" no mundo
+// Quando o jogador ù "spawnado" no mundo
 //
 public OnPlayerSpawn(playerid)
 {
-	// Mostra (novamente) a textdraw do relÛgio ao spawnar
+	// Mostra (novamente) a textdraw do relùgio ao spawnar
 	TextDrawShowForPlayer(playerid, clock_hud);
 	
 	return 1;
@@ -158,7 +158,7 @@ public OnPlayerSpawn(playerid)
 //
 public OnPlayerDeath(playerid, killerid, WEAPON:reason)
 {
-	// Oculta temporariamente a textdraw do relÛgio
+	// Oculta temporariamente a textdraw do relùgio
 	TextDrawHideForPlayer(playerid, clock_hud);
 	return 1;
 }
