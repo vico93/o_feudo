@@ -2,27 +2,27 @@
  *  Arquivo:				of_i_base.inc
  *  Tipo:					Biblioteca principal do gamemode O Feudo
  *  Autor:					Vico
- *  LicenÁa:				MIT
+ *  Licen√ßa:				MIT
 */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include <open.mp>											// Biblioteca padr„o do open.mp
+#include <open.mp>											// Biblioteca padr√£o do open.mp
 #include <sscanf2>											// Biblioteca sscanf
 #include <Pawn.CMD>										    // Biblioteca Pawn.CMD
 
-/* ------------------------------- DEFINI«’ES -------------------------------- */
+/* ------------------------------- DEFINI√á√ïES -------------------------------- */
 
-#define MAX_STRING 1024										// Tamanho m·ximo de string
-#define MAX_TEXT_OUTPUT 144									// Tamanho m·ximo de string em SendClientMessage
+#define MAX_STRING 1024										// Tamanho m√°ximo de string
+#define MAX_TEXT_OUTPUT 144									// Tamanho m√°ximo de string em SendClientMessage
 
-/* -------------------------------- FUN«’ES ---------------------------------- */
+/* -------------------------------- FUN√á√ïES ---------------------------------- */
 //
-// Uma cÛpia exata (!?) da funÁ„o rand() do PHP
+// Uma c√≥pia exata (!?) da fun√ß√£o rand() do PHP
 //
 stock rand(minnum = cellmin,maxnum = cellmax) return random(maxnum - minnum + 1) + minnum;
 
 //
-//	Verifica se a ID de skin passada È v·lida (apenas skins "vanilla"/do jogo original)
+//	Verifica se a ID de skin passada √© v√°lida (apenas skins "vanilla"/do jogo original)
 //
 stock IsValidUnmoddedSkin(skinid)
 {
@@ -34,17 +34,17 @@ stock IsValidUnmoddedSkin(skinid)
 }
 
 //
-//	Registra as classes (skins) "escolhÌveis" em ordem aleatÛria (vai no evento OnGameModeInit)
+//	Registra as classes (skins) "escolh√≠veis" em ordem aleat√≥ria (vai no evento OnGameModeInit)
 //
 stock RegisterSkins()
 {
 	// Faz com que todos tenham o andar do CJ
-	// UsePlayerPedAnims(); -- open.mp j· tem isso!
+	// UsePlayerPedAnims(); -- open.mp j√° tem isso!
 	
-	// Cria um vetor para armazenar as IDs de skins v·lidas
+	// Cria um vetor para armazenar as IDs de skins v√°lidas
 	new skins[312];
 	
-    // Gera o vetor ordenado (311 È a ID mais alta de skins n„o-customizadas)
+    // Gera o vetor ordenado (311 √© a ID mais alta de skins n√£o-customizadas)
     for (new i = 0; i < sizeof(skins); i++)
     {
 		skins[i] = i;
@@ -62,10 +62,10 @@ stock RegisterSkins()
 	// Finalmente adiciona as classes de skins no gamemode
 	for (new i = 0; i < sizeof(skins); i++)
 	{
-		// Verifica se a ID de skin È v·lida
+		// Verifica se a ID de skin √© v√°lida
 		if (IsValidUnmoddedSkin(skins[i]))
 		{
-			// LOCAL: ARM¡RIO DO CJ (Interior 14)
+			// LOCAL: ARM√ÅRIO DO CJ (Interior 14)
 			AddPlayerClass(skins[i], 259.104156, -41.613594, 1002.023437, 99.760757, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
 		}
 	}
@@ -74,11 +74,11 @@ stock RegisterSkins()
 }
 
 //
-// Posiciona o jogador na tela de seleÁ„o de classe/skin (essa vai no evento OnPlayerRequestClass)
+// Posiciona o jogador na tela de sele√ß√£o de classe/skin (essa vai no evento OnPlayerRequestClass)
 //
 stock PositionPlayerSpawn(playerid)
 {
-	// LOCAL: ARM¡RIO DO CJ (Interior 14)
+	// LOCAL: ARM√ÅRIO DO CJ (Interior 14)
 	SetPlayerWeather(playerid, 21);				// Emular a claridade dos interiores trocando o tempo para 21
 	SetPlayerInterior(playerid, 14);
 	SetPlayerPos(playerid, 259.104156, -41.613594, 1002.023437);
@@ -90,7 +90,7 @@ stock PositionPlayerSpawn(playerid)
 }
 
 //
-// VariaÁ„o do GetPlayerName que RETORNA a string do nome
+// Varia√ß√£o do GetPlayerName que RETORNA a string do nome
 //
 stock GetPlayerNameRet(playerid)
 {
@@ -101,7 +101,7 @@ stock GetPlayerNameRet(playerid)
 }
 
 //
-// VariaÁ„o do GetWeaponName que RETORNA a string da arma
+// Varia√ß√£o do GetWeaponName que RETORNA a string da arma
 //
 stock GetWeaponNameRet(WEAPON:weaponid)
 {
@@ -141,7 +141,7 @@ stock SendDeathToChat(playerid, killerid, WEAPON:reason, color)
 			{
 				format(death_msg, sizeof(death_msg), "%s teve %s enfiado no traseiro por %s", GetPlayerNameRet(playerid), GetWeaponNameRet(reason), GetPlayerNameRet(killerid));
 			}
-			// LanÁa-chamas (ou fogo causado por outro jogador)
+			// Lan√ßa-chamas (ou fogo causado por outro jogador)
 			case WEAPON_FLAMETHROWER:
 			{
 				format(death_msg, sizeof(death_msg), "%s andou no fogo enquanto lutava com %s", GetPlayerNameRet(playerid), GetPlayerNameRet(killerid));
@@ -161,12 +161,12 @@ stock SendDeathToChat(playerid, killerid, WEAPON:reason, color)
 			{
 				format(death_msg, sizeof(death_msg), "%s atingiu %s com %s", GetPlayerNameRet(killerid), GetPlayerNameRet(playerid), GetWeaponNameRet(reason));
 			}
-			// G·s
+			// G√°s
 			case WEAPON_TEARGAS, WEAPON_SPRAYCAN, WEAPON_FIREEXTINGUISHER:
 			{
 				format(death_msg, sizeof(death_msg), "%s sufocou-se enquanto lutava com %s", GetPlayerNameRet(playerid), GetPlayerNameRet(killerid));
 			}
-			// Mensagem genÈrica para morte com matador
+			// Mensagem gen√©rica para morte com matador
 			default:
 			{
 				format(death_msg, sizeof(death_msg), "%s matou %s", GetPlayerNameRet(killerid), GetPlayerNameRet(playerid));
@@ -176,7 +176,7 @@ stock SendDeathToChat(playerid, killerid, WEAPON:reason, color)
 	// Caso tenha morrido sozinho...
 	else
 	{
-		// Mensagem genÈrica para morte sem matador
+		// Mensagem gen√©rica para morte sem matador
 		format(death_msg, sizeof(death_msg), "%s morreu", GetPlayerNameRet(playerid));
 	}
 	SendClientMessageToAll(color, death_msg);

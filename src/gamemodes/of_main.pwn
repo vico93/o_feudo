@@ -2,8 +2,8 @@
  * @file of_main.pwn
  * @brief Gamemode principal "O Feudo (4Fun)".
  *
- * Este gamemode È voltado para divers„o casual com funcionalidades b·sicas.
- * ContÈm estrutura de inicializaÁ„o, carregamento e configuraÁ„o principal.
+ * Este gamemode √© voltado para divers√£o casual com funcionalidades b√°sicas.
+ * Cont√©m estrutura de inicializa√ß√£o, carregamento e configura√ß√£o principal.
  *
  * @author Vico
  * @license MIT
@@ -15,15 +15,15 @@
 #include <of_i_base>                                    // Biblioteca principal do GameMode
 #include <of_i_colors>                                  // Biblioteca de cores
 
-/* ------------------------------- DEFINI«’ES -------------------------------- */
+/* ------------------------------- DEFINI√á√ïES -------------------------------- */
 #define    GM_NAME "O Feudo (4Fun) 0.1b"                    // Nome do GameMode
 
-/* ---------------------------- VARI¡VEIS GLOBAIS ---------------------------- */
+/* ---------------------------- VARI√ÅVEIS GLOBAIS ---------------------------- */
 
-/* ----------------------------- M…TODO PRINCIPAL ---------------------------- */
+/* ----------------------------- M√âTODO PRINCIPAL ---------------------------- */
 main()
 {
-    // Mensagem apÛs todo o total carregamento do sistema
+    // Mensagem ap√≥s todo o total carregamento do sistema
     print("Feito! Servidor funcional!");
 }
 
@@ -34,7 +34,7 @@ public OnGameModeInit()
     // Define o nome do gamemode
     SetGameModeText(GM_NAME);
     
-    // Registra as classes (skins) "escolhÌveis" no gamemode
+    // Registra as classes (skins) "escolh√≠veis" no gamemode
     RegisterSkins();
     
     // Confirma que foi iniciado com sucesso
@@ -71,12 +71,12 @@ public OnPlayerConnect(playerid)
 //
 public OnPlayerDisconnect(playerid, reason)
 {
-    // Informa no chat a saÌda do jogador
+    // Informa no chat a sa√≠da do jogador
     new left_msg[MAX_TEXT_OUTPUT];
     format(left_msg, sizeof(left_msg), "%s saiu da partida", GetPlayerNameRet(playerid));
     SendClientMessageToAll(MC_YELLOW, left_msg);
     
-    // Informa no killfeed a saÌda do jogador
+    // Informa no killfeed a sa√≠da do jogador
     SendDeathMessage(INVALID_PLAYER_ID, playerid, 201);
     
     return 1;
@@ -87,18 +87,18 @@ public OnPlayerDisconnect(playerid, reason)
 //
 public OnPlayerRequestClass(playerid, classid)
 {
-    // Inicializa posiÁıes e interior da tela de escolha de skins (LOCAL: ARM¡RIO DO CJ - interior 14)
+    // Inicializa posi√ß√µes e interior da tela de escolha de skins (LOCAL: ARM√ÅRIO DO CJ - interior 14)
     PositionPlayerSpawn(playerid);
     
     return 1;
 }
 
 //
-// Quando o jogador È "spawnado" no mundo
+// Quando o jogador √© "spawnado" no mundo
 //
 public OnPlayerSpawn(playerid)
 {
-    // LOCAL: GROVE STREET (um pouco mais ‡ frente da porta da casa do CJ)
+    // LOCAL: GROVE STREET (um pouco mais √† frente da porta da casa do CJ)
     SetPlayerPos(playerid, 2495.3767, -1687.6876, 13.5162);
     SetPlayerFacingAngle(playerid, 7.3733);
     SetPlayerInterior(playerid, 0);
@@ -115,7 +115,7 @@ public OnPlayerDeath(playerid, killerid, WEAPON:reason)
     // Mostra o acontecido no killfeed
     SendDeathMessage(killerid, playerid, reason);
     
-    // Envia o an˙ncio da morte para o chat
+    // Envia o an√∫ncio da morte para o chat
     SendDeathToChat(playerid, killerid, reason, MC_RED);
     return 1;
 }
@@ -442,12 +442,12 @@ public OnPlayerCommandText(playerid, cmdtext[])
 //
 cmd:help(playerid, params[])
 {
-    // Caso n„o v· utilizar argumentos...
+    // Caso n√£o v√° utilizar argumentos...
     #pragma unused params
     
     // Envia a tabela de comandos
-    SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando p·gina de ajuda 1 de 1 (/help <p·gina>) ---");
-    SendClientMessage(playerid, MC_WHITE, "/help [p·gina/nome do comando]");
+    SendClientMessage(playerid, MC_DARK_GREEN, "--- Mostrando p√°gina de ajuda 1 de 1 (/help <p√°gina>) ---");
+    SendClientMessage(playerid, MC_WHITE, "/help [p√°gina/nome do comando]");
     SendClientMessage(playerid, MC_DARK_GREEN, "---------------------------------------------------------");
     return 1;
 }
