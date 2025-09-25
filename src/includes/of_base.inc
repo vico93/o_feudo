@@ -1,5 +1,5 @@
 /*
- *  Arquivo:				of_i_base.inc
+ *  Arquivo:				of_base.inc
  *  Tipo:					Biblioteca principal do gamemode O Feudo
  *  Autor:					Vico
  *  Licença:				MIT

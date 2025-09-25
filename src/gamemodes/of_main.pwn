@@ -12,8 +12,8 @@
  */
 
 /* ------------------------------- BIBLIOTECAS ------------------------------- */
-#include <of_i_base>                                    // Biblioteca principal do GameMode
-#include <of_i_colors>                                  // Biblioteca de cores
+#include <of_base>                                         // Biblioteca principal do GameMode
+#include <of_colors>                                       // Biblioteca de cores
 
 /* ------------------------------- DEFINIÇÕES -------------------------------- */
 #define    GM_NAME "O Feudo (4Fun) 0.1b"                    // Nome do GameMode

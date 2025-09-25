@@ -1,5 +1,5 @@
 /*
- *  Arquivo:				of_b_playerdata.inc
+ *  Arquivo:				of_playerdata.inc
  *  Tipo:					Biblioteca para gerenciamento dos dados do jogador e banco de dados
  *  Autor:					Vico
  *  Licença:				MIT
