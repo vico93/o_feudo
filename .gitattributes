@@ -1,2 +1,3 @@
-*.pwn text encoding=windows-1252
-*.inc text encoding=windows-1252
+# Arquivos Pawn em ANSI (Windows-1252) e CRLF
+*.pwn text eol=crlf working-tree-encoding=windows-1252 encoding=windows-1252
+*.inc text eol=crlf working-tree-encoding=windows-1252 encoding=windows-1252
