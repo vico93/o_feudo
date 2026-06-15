@@ -15,6 +15,8 @@
 #define MAX_STRING 1024										// Tamanho máximo de string
 #define MAX_TEXT_OUTPUT 144									// Tamanho máximo de string em SendClientMessage
 
+/* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
+
 /* -------------------------------- FUNÇÕES ---------------------------------- */
 //
 // Uma cópia exata (!?) da função rand() do PHP

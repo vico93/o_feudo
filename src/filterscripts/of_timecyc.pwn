@@ -15,6 +15,7 @@
 /* ---------------------------- VARIÁVEIS GLOBAIS ---------------------------- */
 new Text:clock_hud;									// Textdraw do relógio
 new update_timer = -1;								// Timer pra atualizar a hora
+new timezone_offset = -3;							// Offset do fuso horário (em horas) - Altere para o seu fuso horário, se necessário
 
 /* -------------------------------- FUNÇÕES ---------------------------------- */
 forward FrstUpdateTime();
@@ -25,6 +26,8 @@ public FrstUpdateTime()
 	// Busca a hora do sistema...
 	new hours, minutes = 0;
 	gettime(hours, minutes, _);
+	// Aplica o offset do fuso horário
+	hours = (hours + timezone_offset) % 24;
 	
 	// ...atualiza a textdraw do relógio...
 	new clock_string[] = "00:00";
@@ -53,6 +56,8 @@ public UpdateTime()
 	// Busca a hora do sistema...
 	new hours, minutes = 0;
 	gettime(hours, minutes, _);
+	// Aplica o offset do fuso horário
+	hours = (hours + timezone_offset) % 24;
 
 	// ...atualiza a textdraw do relógio...
 	new clock_string[] = "00:00";
@@ -98,6 +103,8 @@ public OnFilterScriptInit()
 	// Captura a hora e os segundos atuais e seta a hora do server...
 	new hours, seconds = 0;
 	gettime(hours, _, seconds);
+	// Aplica o offset do fuso horário
+	hours = (hours + timezone_offset) % 24;
 	SetWorldTime(hours);
 	
 	// ...atualiza a textdraw do relógio...
