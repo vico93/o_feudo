@@ -1,0 +1,14 @@
+[Unit]
+Description=O Feudo - open.mp Server
+After=network.target
+
+[Service]
+Type=simple
+User=your_user_here
+WorkingDirectory=/path/to/o_feudo
+ExecStart=/path/to/o_feudo/omp-server
+Restart=on-failure
+RestartSec=15s
+
+[Install]
+WantedBy=multi-user.target
